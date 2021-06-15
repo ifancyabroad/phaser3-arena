@@ -1,0 +1,218 @@
+[
+	{
+		"name": "Skeleton",
+		"sprite": "skelet",
+		"type": "undead",
+		"animations": [
+			{"type": "run", "key": "skelet_run","prefix": "skelet_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "skelet_idle","prefix": "skelet_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 15,
+		"stats": {
+			"health": 100,
+			"speed": 50
+		},
+		"size": {
+			"width": 12,
+			"height": 16
+		}
+	},
+	{
+		"name": "Zombie",
+		"sprite": "zombie",
+		"type": "undead",
+		"animations": [
+			{"type": "run", "key": "zombie_run","prefix": "zombie_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "zombie_idle","prefix": "zombie_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 30,
+		"stats": {
+			"health": 250,
+			"speed": 20
+		},
+		"size": {
+			"width": 12,
+			"height": 16
+		}
+	},
+	{
+		"name": "Tiny Zombie",
+		"sprite": "tiny_zombie",
+		"type": "undead",
+		"animations": [
+			{"type": "run", "key": "tiny_zombie_run","prefix": "tiny_zombie_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "tiny_zombie_idle","prefix": "tiny_zombie_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 10,
+		"stats": {
+			"health": 160,
+			"speed": 30
+		},
+		"size": {
+			"width": 12,
+			"height": 8
+		}
+	},
+	{
+		"name": "Big Zombie",
+		"sprite": "big_zombie",
+		"type": "undead",
+		"animations": [
+			{"type": "run", "key": "big_zombie_run","prefix": "big_zombie_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "big_zombie_idle","prefix": "big_zombie_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 150,
+		"stats": {
+			"health": 700,
+			"speed": 25
+		},
+		"size": {
+			"width": 18,
+			"height": 24
+		}
+	},
+	{
+		"name": "Orc Warrior",
+		"sprite": "orc_warrior",
+		"type": "orc",
+		"animations": [
+			{"type": "run", "key": "orc_warrior_run","prefix": "orc_warrior_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "orc_warrior_idle","prefix": "orc_warrior_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 20,
+		"stats": {
+			"health": 150,
+			"speed": 30
+		},
+		"size": {
+			"width": 12,
+			"height": 16
+		}
+	},
+	{
+		"name": "Masked Orc",
+		"sprite": "masked_orc",
+		"type": "orc",
+		"animations": [
+			{"type": "run", "key": "masked_orc_run","prefix": "masked_orc_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "masked_orc_idle","prefix": "masked_orc_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 25,
+		"stats": {
+			"health": 220,
+			"speed": 25
+		},
+		"size": {
+			"width": 12,
+			"height": 16
+		}
+	},
+	{
+		"name": "Ogre",
+		"sprite": "ogre",
+		"type": "orc",
+		"animations": [
+			{"type": "run", "key": "ogre_run","prefix": "ogre_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "ogre_idle","prefix": "ogre_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 100,
+		"stats": {
+			"health": 500,
+			"speed": 15
+		},
+		"size": {
+			"width": 18,
+			"height": 24
+		}
+	},
+	{
+		"name": "Goblin",
+		"sprite": "goblin",
+		"type": "orc",
+		"animations": [
+			{"type": "run", "key": "goblin_run","prefix": "goblin_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "goblin_idle","prefix": "goblin_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 5,
+		"stats": {
+			"health": 40,
+			"speed": 70
+		},
+		"size": {
+			"width": 12,
+			"height": 8
+		}
+	},
+	{
+		"name": "Wogol",
+		"sprite": "wogol",
+		"type": "demon",
+		"animations": [
+			{"type": "run", "key": "wogol_run","prefix": "wogol_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "wogol_idle","prefix": "wogol_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 30,
+		"stats": {
+			"health": 250,
+			"speed": 80
+		},
+		"size": {
+			"width": 12,
+			"height": 16
+		}
+	},
+	{
+		"name": "Imp",
+		"sprite": "imp",
+		"type": "demon",
+		"animations": [
+			{"type": "run", "key": "imp_run","prefix": "imp_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "imp_idle","prefix": "imp_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 20,
+		"stats": {
+			"health": 190,
+			"speed": 100
+		},
+		"size": {
+			"width": 12,
+			"height": 8
+		}
+	},
+	{
+		"name": "Chort",
+		"sprite": "chort",
+		"type": "demon",
+		"animations": [
+			{"type": "run", "key": "chort_run","prefix": "chort_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "chort_idle","prefix": "chort_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 30,
+		"stats": {
+			"health": 300,
+			"speed": 50
+		},
+		"size": {
+			"width": 12,
+			"height": 16
+		}
+	},
+	{
+		"name": "Big Demon",
+		"sprite": "big_demon",
+		"type": "demon",
+		"animations": [
+			{"type": "run", "key": "big_demon_run","prefix": "big_demon_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
+			{"type": "idle", "key": "big_demon_idle","prefix": "big_demon_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+		],
+		"value": 300,
+		"stats": {
+			"health": 900,
+			"speed": 60
+		},
+		"size": {
+			"width": 18,
+			"height": 24
+		}
+	}
+]

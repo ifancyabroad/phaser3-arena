@@ -1,0 +1,155 @@
+import { GameObjects, Input, Scene } from "phaser";
+import { Animation, AnimationType, PlayerData } from "../../types";
+import { Entity } from "../Entity";
+import { Weapon } from "../Weapon";
+
+enum PlayerState {
+	Default,
+	Stunned,
+	Dead,
+}
+
+export class Player extends Entity {
+	readonly pointer: Input.Pointer;
+	readonly controls: {
+		up?: Input.Keyboard.Key,
+		down?: Input.Keyboard.Key,
+		left?: Input.Keyboard.Key,
+		right?: Input.Keyboard.Key,
+		attack?: Input.Keyboard.Key,
+	};
+	weapon?: Weapon;
+
+	constructor(scene: Scene, x: number, y: number, children: GameObjects.GameObject[], data: PlayerData) {
+		super(scene, x, y, children, data);
+
+		if ('setOffset' in this.body) {
+			this.body.setOffset(0, 6);
+		}
+
+		this.pointer = scene.input.activePointer;
+		this.controls = scene.input.keyboard.addKeys({
+			up: Phaser.Input.Keyboard.KeyCodes.W,
+			down: Phaser.Input.Keyboard.KeyCodes.S,
+			left: Phaser.Input.Keyboard.KeyCodes.A,
+			right: Phaser.Input.Keyboard.KeyCodes.D,
+			attack: Phaser.Input.Keyboard.KeyCodes.SPACE
+		})
+
+		/*
+         *  Set to Default state
+         *  Set current data
+         */
+		this.setState(PlayerState.Default);
+		this.setData({
+			animations: data.animations,
+			score: data.score,
+			gold: data.gold,
+			lives: data.lives,
+			maxLives: data.maxLives,
+			speed: data.speed,
+			size: data.size,
+			weapon: data.weapon
+		});
+	}
+
+	update() {
+		this.controlManager();
+		this.aliveCheck();
+	}
+
+	private isAlive = () => this.data.values.lives > 0;
+
+	private aliveCheck() {
+		if (!this.isAlive()) {
+			this.death();
+		}
+	}
+
+	public updateScore(points: number) {
+		this.data.values.score += points;
+		this.scene.events.emit('updateScore');
+	}
+
+	public updateGold(gold: number) {
+		this.data.values.gold += gold;
+		this.scene.events.emit('updateGold');
+	}
+
+	private controlManager() {
+		if (this.x > this.pointer.x) {
+			this.sprite.setFlipX(true);
+		} else {
+			this.sprite.setFlipX(false);
+		}
+
+		if ((Phaser.Input.Keyboard.JustDown(this.controls.attack) || this.pointer.isDown) && this.weapon) {
+			this.weapon.attack();
+		}
+
+		if (this.body instanceof Phaser.Physics.Arcade.Body) {
+			if (this.controls.left.isDown) {
+				this.body.setVelocityX(-this.getData('speed'));
+			} else if (this.controls.right.isDown) {
+				this.body.setVelocityX(this.getData('speed'));
+			} else {
+				this.body.setVelocityX(0);
+			}
+			if (this.controls.up.isDown) {
+				this.body.setVelocityY(-this.getData('speed'));
+			} else if (this.controls.down.isDown) {
+				this.body.setVelocityY(this.getData('speed'));
+			} else {
+				this.body.setVelocityY(0);
+			}
+		}
+
+		if (this.body.velocity.x !== 0 || this.body.velocity.y !== 0) {
+			const animation: Animation = this.getData('animations').find((animation: Animation) => animation.type === "run");
+			this.sprite.play(animation.key, true);
+		} else {
+			const animation: Animation = this.getData('animations').find((animation: Animation) => animation.type === "idle");
+			this.sprite.play(animation.key, true);
+		}
+	}
+
+	public takeHit() {
+		if (this.state === PlayerState.Default) {
+			this.stunned();
+			this.flash();
+			this.data.values.lives--;
+			this.scene.events.emit('updateHearts');
+		}
+	}
+
+	private stunned() {
+		this.setState(PlayerState.Stunned);
+		this.scene.time.delayedCall(1000, () => {
+			this.setState(PlayerState.Default);
+		}, null, this);
+	}
+
+	private flash() {
+		this.sprite.setTintFill(0xff0000);
+		this.scene.time.delayedCall(200, () => {
+			this.sprite.clearTint();
+		}, null, this);
+	}
+
+	public equip(weapon: Weapon) {
+		if (this.weapon) {
+			this.remove(this.weapon);
+			this.weapon.setUnequipped();
+		}
+		this.weapon = weapon;
+		this.setData('weapon', this.weapon.name)
+		this.add(this.weapon);
+	}
+
+	private death() {
+		this.setState(3);
+		this.setActive(false);
+		this.scene.scene.setActive(false);
+		// this.scene.gameOver();
+	}
+}
