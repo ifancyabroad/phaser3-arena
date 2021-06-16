@@ -66,12 +66,11 @@ export class Loading extends Phaser.Scene {
 		this.load.json('enemyData', 'assets/data/enemies.json');
 		this.load.json('npcData', 'assets/data/npcs.json');
 		this.load.json('weaponData', 'assets/data/weapons.json');
-		this.load.json('roomData', 'assets/data/rooms.json');
 	}
 
 	private loadMaps() {
 		this.load.tilemapTiledJSON([
-			{ key: `dungeon-1-1`, url: `assets/rooms/dungeon-1-1.json` }
+			{ key: `arena`, url: `assets/rooms/arena.json` }
 		])
 	}
 

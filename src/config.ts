@@ -26,7 +26,7 @@ export const PLAYER_DATA: PlayerData = {
 
 export const LEVEL_DATA: LevelData[] = [
     {
-        key: 'dungeon-1-1',
+        key: 'arena',
         name: 'The Arena',
         music: 'dungeonMusic'
     }
