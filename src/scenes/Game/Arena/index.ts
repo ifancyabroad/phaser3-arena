@@ -1,6 +1,7 @@
 import { GameObjects, Sound, Tilemaps } from "phaser";
 import { Coin, Enemy, NPC, Player, Spikes, Weapon } from "../../../objects";
 import { EnemyData, GameData, LevelData, NPCData, PlayerData, WeaponData } from "../../../types";
+import { debugDraw } from "../../../utils";
 
 export class Arena extends Phaser.Scene {
     levelData: LevelData;
@@ -178,12 +179,13 @@ export class Arena extends Phaser.Scene {
         this.layerWallsInFront.setCollisionByProperty({ collides: true });
         this.physics.world.addCollider(this.player, this.npcs);
         this.physics.world.addCollider(this.player, this.layerWallsBehind);
-        this.physics.world.addCollider(this.player, this.layerWallsBehind);
         this.physics.world.addCollider(this.player, this.layerWallsInFront);
         // this.physics.world.addCollider(this.enemies);
         this.physics.world.addCollider(this.enemies, this.layerWallsBehind);
         this.physics.world.addCollider(this.enemies, this.layerWallsInFront);
-        // this.physics.world.createDebugGraphic();
+        this.physics.world.createDebugGraphic();
+        debugDraw(this.layerWallsBehind, this);
+        debugDraw(this.layerWallsInFront, this);
     }
 
     private roomComplete() {
