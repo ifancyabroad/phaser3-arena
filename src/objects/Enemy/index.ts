@@ -1,5 +1,5 @@
 import { GameObjects, Scene } from "phaser";
-import { Animation, AnimationType, EnemyData } from "../../types";
+import { Animation, EnemyData } from "../../types";
 import { Entity } from "../Entity";
 
 enum EnemyState {
@@ -51,19 +51,33 @@ export class Enemy extends Entity {
 	}
 
 	update() {
-		if (this.state !== EnemyState.Stunned) {
-			this.setSprite();
-			this.collisionCheck();
-		}
-		this.stateManager();
 		this.aliveCheck();
+		this.stateManager();
 	}
 
-	private isAlive = () => this.data.values.health > 0;
+	private stateManager() {
+		switch (this.state) {
+			case EnemyState.Default:
+				this.setSprite();
+				this.collisionCheck();
+				this.findPlayer();
+				break;
+			case EnemyState.Stunned:
+				break;
+			case EnemyState.Attacking:
+				this.setSprite();
+				this.collisionCheck();
+				this.attackPlayer();
+				break;
+			case EnemyState.Dead:
+				this.death();
+				break;
+		}
+	}
 
 	private aliveCheck() {
-		if (!this.isAlive()) {
-			this.death();
+		if (this.data.values.health <= 0) {
+			this.setState(EnemyState.Dead);
 		}
 	}
 
@@ -88,18 +102,6 @@ export class Enemy extends Entity {
 			this.setState(EnemyState.Attacking);
 		} else {
 			this.setState(EnemyState.Default);
-		}
-	}
-
-	private stateManager() {
-		switch (this.state) {
-			case EnemyState.Default:
-				this.findPlayer();
-				break;
-
-			case EnemyState.Attacking:
-				this.attackPlayer();
-				break;
 		}
 	}
 
@@ -151,7 +153,6 @@ export class Enemy extends Entity {
 	private death() {
 		this.scene.sound.play(`${this.getData('type')}-death`);
 		this.scene.player.updateScore(this.getData('value'));
-		this.setState(EnemyState.Dead);
 		this.emitter.emitParticleAt(this.x, this.y);
 		this.destroy();
 	}

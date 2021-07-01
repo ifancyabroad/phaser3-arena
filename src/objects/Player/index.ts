@@ -1,5 +1,5 @@
 import { GameObjects, Input, Scene } from "phaser";
-import { Animation, AnimationType, PlayerData } from "../../types";
+import { Animation, PlayerData } from "../../types";
 import { Entity } from "../Entity";
 import { Weapon } from "../Weapon";
 
@@ -54,14 +54,12 @@ export class Player extends Entity {
 	}
 
 	update() {
-		this.controlManager();
 		this.aliveCheck();
+		this.controlManager();
 	}
 
-	private isAlive = () => this.data.values.lives > 0;
-
 	private aliveCheck() {
-		if (!this.isAlive()) {
+		if (this.data.values.lives <= 0) {
 			this.death();
 		}
 	}
@@ -147,7 +145,7 @@ export class Player extends Entity {
 	}
 
 	private death() {
-		this.setState(3);
+		this.setState(PlayerState.Dead);
 		this.setActive(false);
 		this.scene.scene.setActive(false);
 		// this.scene.gameOver();

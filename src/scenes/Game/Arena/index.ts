@@ -35,9 +35,9 @@ export class Arena extends Phaser.Scene {
 
         this.startMusic();
         this.generateMap();
+        this.generatePlayer();
         this.generateNPCs();
         this.generateEnemies();
-        this.generatePlayer();
         this.generateWeapons();
         this.generateItems();
         this.generateSpikes();
@@ -94,7 +94,9 @@ export class Arena extends Phaser.Scene {
     }
 
     private generateEnemies() {
-        this.enemies = this.add.group();
+        this.enemies = this.add.group({
+            classType: Enemy
+        });
         const enemyLayer = this.tileMap.getObjectLayer('Enemies');
         if (enemyLayer) {
             enemyLayer.objects.forEach(object => {
