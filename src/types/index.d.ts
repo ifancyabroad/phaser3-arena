@@ -15,6 +15,7 @@ export interface Animation {
     type: AnimationType;
     key: string;
     prefix: string;
+    suffix: string;
     start: number;
     end: number;
     frameRate: number;
@@ -23,7 +24,11 @@ export interface Animation {
 
 export interface EntityData {
     name: string;
-    sprite: string;
+    sprite: {
+        key: string;
+        texture: string;
+        frame: string;
+    };
     type: string;
     animations: Animation[];
     size: {
@@ -33,12 +38,14 @@ export interface EntityData {
 }
 
 export interface PlayerData extends EntityData {
-    score: number;
-    gold: number;
-    lives: number;
-    maxLives: number;
-    speed: number;
     weapon: string;
+    stats: {
+        score: number;
+        gold: number;
+        lives: number;
+        maxLives: number;
+        speed: number;
+    };
 }
 
 export interface EnemyData extends EntityData {

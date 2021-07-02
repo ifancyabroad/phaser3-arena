@@ -1,5 +1,4 @@
-import { PLAYER_DATA } from "../../config";
-import { Animation, AnimationType, EnemyData } from "../../types";
+import { Animation, EnemyData, PlayerData } from "../../types";
 
 export class Loading extends Phaser.Scene {
 
@@ -17,16 +16,18 @@ export class Loading extends Phaser.Scene {
 	}
 
 	create() {
-		this.generateAnimations(PLAYER_DATA.animations, 'dungeon-sprites');
+		this.cache.json.get('characterData').forEach((character: PlayerData) => {
+			this.generateAnimations(character.animations, character.sprite.texture);
+		});
 		this.cache.json.get('enemyData').forEach((enemy: EnemyData) => {
-			this.generateAnimations(enemy.animations, 'dungeon-sprites');
+			this.generateAnimations(enemy.animations, enemy.sprite.texture);
 		});
 		this.cache.json.get('npcData').forEach((npc: EnemyData) => {
-			this.generateAnimations(npc.animations, 'npc-sprites');
+			this.generateAnimations(npc.animations, npc.sprite.texture);
 		});
 		this.generateAnimations([
-			{ type: "idle", key: "coin", prefix: 'coin_anim_f', start: 0, end: 3, frameRate: 10, repeat: -1 },
-			{ type: "idle", key: "floor_spikes", prefix: 'floor_spikes_anim_f', start: 0, end: 3, frameRate: 5, repeat: -1 }
+			{ type: "idle", key: "coin", prefix: 'frames/coin_anim_f', suffix: '.png', start: 0, end: 3, frameRate: 10, repeat: -1 },
+			{ type: "idle", key: "floor_spikes", prefix: 'frames/floor_spikes_anim_f', suffix: '.png', start: 0, end: 3, frameRate: 5, repeat: -1 }
 		], 'dungeon-sprites');
 		this.scene.start('menu');
 	}
@@ -63,6 +64,7 @@ export class Loading extends Phaser.Scene {
 	}
 
 	private loadData() {
+		this.load.json('characterData', 'assets/data/characters.json');
 		this.load.json('enemyData', 'assets/data/enemies.json');
 		this.load.json('npcData', 'assets/data/npcs.json');
 		this.load.json('weaponData', 'assets/data/weapons.json');
@@ -90,14 +92,14 @@ export class Loading extends Phaser.Scene {
 		animations: Animation[],
 		atlas: string,
 	) {
-		animations.forEach(({ key, prefix, start, end, frameRate, repeat }) => {
+		animations.forEach(({ key, prefix, suffix, start, end, frameRate, repeat }) => {
 			this.anims.create({
 				key,
 				frames: this.anims.generateFrameNames(atlas, {
 					start,
 					end,
-					prefix: `frames/${prefix}`,
-					suffix: '.png'
+					prefix,
+					suffix,
 				}),
 				frameRate,
 				repeat

@@ -1,11 +1,33 @@
 [
 	{
 		"name": "Skeleton",
-		"sprite": "skelet",
+		"sprite": {
+			"key": "skelet",
+			"texture": "dungeon-sprites",
+			"frame": "frames/skelet_idle_anim_f0.png"
+		},
 		"type": "undead",
 		"animations": [
-			{"type": "run", "key": "skelet_run","prefix": "skelet_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "skelet_idle","prefix": "skelet_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "skelet_run",
+				"prefix": "frames/skelet_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "skelet_idle",
+				"prefix": "frames/skelet_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 15,
 		"stats": {
@@ -19,11 +41,33 @@
 	},
 	{
 		"name": "Zombie",
-		"sprite": "zombie",
+		"sprite": {
+			"key": "zombie",
+			"texture": "dungeon-sprites",
+			"frame": "frames/zombie_idle_anim_f0.png"
+		},
 		"type": "undead",
 		"animations": [
-			{"type": "run", "key": "zombie_run","prefix": "zombie_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "zombie_idle","prefix": "zombie_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "zombie_run",
+				"prefix": "frames/zombie_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "zombie_idle",
+				"prefix": "frames/zombie_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 30,
 		"stats": {
@@ -37,11 +81,33 @@
 	},
 	{
 		"name": "Tiny Zombie",
-		"sprite": "tiny_zombie",
+		"sprite": {
+			"key": "tiny_zombie",
+			"texture": "dungeon-sprites",
+			"frame": "frames/tiny_zombie_idle_anim_f0.png"
+		},
 		"type": "undead",
 		"animations": [
-			{"type": "run", "key": "tiny_zombie_run","prefix": "tiny_zombie_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "tiny_zombie_idle","prefix": "tiny_zombie_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "tiny_zombie_run",
+				"prefix": "frames/tiny_zombie_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "tiny_zombie_idle",
+				"prefix": "frames/tiny_zombie_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 10,
 		"stats": {
@@ -55,11 +121,33 @@
 	},
 	{
 		"name": "Big Zombie",
-		"sprite": "big_zombie",
+		"sprite": {
+			"key": "big_zombie",
+			"texture": "dungeon-sprites",
+			"frame": "frames/big_zombie_idle_anim_f0.png"
+		},
 		"type": "undead",
 		"animations": [
-			{"type": "run", "key": "big_zombie_run","prefix": "big_zombie_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "big_zombie_idle","prefix": "big_zombie_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "big_zombie_run",
+				"prefix": "frames/big_zombie_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "big_zombie_idle",
+				"prefix": "frames/big_zombie_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 150,
 		"stats": {
@@ -73,11 +161,33 @@
 	},
 	{
 		"name": "Orc Warrior",
-		"sprite": "orc_warrior",
+		"sprite": {
+			"key": "orc_warrior",
+			"texture": "dungeon-sprites",
+			"frame": "frames/orc_warrior_idle_anim_f0.png"
+		},
 		"type": "orc",
 		"animations": [
-			{"type": "run", "key": "orc_warrior_run","prefix": "orc_warrior_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "orc_warrior_idle","prefix": "orc_warrior_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "orc_warrior_run",
+				"prefix": "frames/orc_warrior_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "orc_warrior_idle",
+				"prefix": "frames/orc_warrior_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 20,
 		"stats": {
@@ -91,11 +201,33 @@
 	},
 	{
 		"name": "Masked Orc",
-		"sprite": "masked_orc",
+		"sprite": {
+			"key": "masked_orc",
+			"texture": "dungeon-sprites",
+			"frame": "frames/masked_orc_idle_anim_f0.png"
+		},
 		"type": "orc",
 		"animations": [
-			{"type": "run", "key": "masked_orc_run","prefix": "masked_orc_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "masked_orc_idle","prefix": "masked_orc_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "masked_orc_run",
+				"prefix": "frames/masked_orc_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "masked_orc_idle",
+				"prefix": "frames/masked_orc_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 25,
 		"stats": {
@@ -109,11 +241,33 @@
 	},
 	{
 		"name": "Ogre",
-		"sprite": "ogre",
+		"sprite": {
+			"key": "ogre",
+			"texture": "dungeon-sprites",
+			"frame": "frames/ogre_idle_anim_f0.png"
+		},
 		"type": "orc",
 		"animations": [
-			{"type": "run", "key": "ogre_run","prefix": "ogre_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "ogre_idle","prefix": "ogre_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "ogre_run",
+				"prefix": "frames/ogre_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "ogre_idle",
+				"prefix": "frames/ogre_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 100,
 		"stats": {
@@ -127,11 +281,33 @@
 	},
 	{
 		"name": "Goblin",
-		"sprite": "goblin",
+		"sprite": {
+			"key": "goblin",
+			"texture": "dungeon-sprites",
+			"frame": "frames/goblin_idle_anim_f0.png"
+		},
 		"type": "orc",
 		"animations": [
-			{"type": "run", "key": "goblin_run","prefix": "goblin_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "goblin_idle","prefix": "goblin_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "goblin_run",
+				"prefix": "frames/goblin_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "goblin_idle",
+				"prefix": "frames/goblin_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 5,
 		"stats": {
@@ -145,11 +321,33 @@
 	},
 	{
 		"name": "Wogol",
-		"sprite": "wogol",
+		"sprite": {
+			"key": "wogol",
+			"texture": "dungeon-sprites",
+			"frame": "frames/wogol_idle_anim_f0.png"
+		},
 		"type": "demon",
 		"animations": [
-			{"type": "run", "key": "wogol_run","prefix": "wogol_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "wogol_idle","prefix": "wogol_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "wogol_run",
+				"prefix": "frames/wogol_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "wogol_idle",
+				"prefix": "frames/wogol_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 30,
 		"stats": {
@@ -163,11 +361,33 @@
 	},
 	{
 		"name": "Imp",
-		"sprite": "imp",
+		"sprite": {
+			"key": "imp",
+			"texture": "dungeon-sprites",
+			"frame": "frames/imp_idle_anim_f0.png"
+		},
 		"type": "demon",
 		"animations": [
-			{"type": "run", "key": "imp_run","prefix": "imp_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "imp_idle","prefix": "imp_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "imp_run",
+				"prefix": "frames/imp_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "imp_idle",
+				"prefix": "frames/imp_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 20,
 		"stats": {
@@ -181,11 +401,33 @@
 	},
 	{
 		"name": "Chort",
-		"sprite": "chort",
+		"sprite": {
+			"key": "chort",
+			"texture": "dungeon-sprites",
+			"frame": "frames/chort_idle_anim_f0.png"
+		},
 		"type": "demon",
 		"animations": [
-			{"type": "run", "key": "chort_run","prefix": "chort_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "chort_idle","prefix": "chort_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "chort_run",
+				"prefix": "frames/chort_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "chort_idle",
+				"prefix": "frames/chort_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 30,
 		"stats": {
@@ -199,11 +441,33 @@
 	},
 	{
 		"name": "Big Demon",
-		"sprite": "big_demon",
+		"sprite": {
+			"key": "big_demon",
+			"texture": "dungeon-sprites",
+			"frame": "frames/big_demon_idle_anim_f0.png"
+		},
 		"type": "demon",
 		"animations": [
-			{"type": "run", "key": "big_demon_run","prefix": "big_demon_run_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1},
-			{"type": "idle", "key": "big_demon_idle","prefix": "big_demon_idle_anim_f", "start": 0, "end": 3, "frameRate": 10, "repeat": -1}
+			{
+				"type": "run",
+				"key": "big_demon_run",
+				"prefix": "frames/big_demon_run_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			},
+			{
+				"type": "idle",
+				"key": "big_demon_idle",
+				"prefix": "frames/big_demon_idle_anim_f",
+				"suffix": ".png",
+				"start": 0,
+				"end": 3,
+				"frameRate": 10,
+				"repeat": -1
+			}
 		],
 		"value": 300,
 		"stats": {

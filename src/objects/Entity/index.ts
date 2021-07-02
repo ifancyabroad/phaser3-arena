@@ -10,7 +10,9 @@ export class Entity extends Phaser.GameObjects.Container {
 		super(scene, x, y, children);
 
 		this.scene = scene as Arena;
-		this.sprite = children[0] as GameObjects.Sprite;
+
+		this.sprite = scene.add.sprite(0, 0, data.sprite.texture, data.sprite.frame);
+		this.add(this.sprite);
 
 		this.scene.add
 			.existing(this)

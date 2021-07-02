@@ -1,5 +1,6 @@
 import { GameObjects, Input, Sound } from "phaser";
-import { LEVEL_DATA, MENU_ITEMS, PLAYER_DATA } from "../../config";
+import { LEVEL_DATA, MENU_ITEMS } from "../../config";
+import { PlayerData } from "../../types";
 
 export class Menu extends Phaser.Scene {
 	music: Sound.BaseSound;
@@ -125,15 +126,22 @@ export class Menu extends Phaser.Scene {
 	 */
 
 	private start() {
+		/* 
+		*	TODO: Add character select screen to determine what character data to use
+		*/
+		const PLAYER_DATA = this.cache.json.get('characterData') as PlayerData[];
 		this.cameras.main.fadeOut(600);
 		this.cameras.main.once('camerafadeoutcomplete', () => {
 			this.scene.start('main', {
 				level: LEVEL_DATA[0],
-				player: PLAYER_DATA
+				player: PLAYER_DATA[0]
 			});
 		}, this);
 	}
 
+	/* 
+	*	TODO: Add controls screen
+	*/
 	private controls() {  }
 
 	private credits() {

@@ -1,7 +1,11 @@
 [
 	{
 		"name": "Sword",
-		"sprite": "regular_sword",
+		"sprite": {
+			"key": "regular_sword",
+			"texture": "dungeon-sprites",
+			"frame": "frames/weapon_regular_sword.png"
+		},
 		"stats": {
 			"damage": 50,
 			"knockback": 5
@@ -13,7 +17,11 @@
 	},
 	{
 		"name": "Hammer",
-		"sprite": "hammer",
+		"sprite": {
+			"key": "hammer",
+			"texture": "dungeon-sprites",
+			"frame": "frames/weapon_hammer.png"
+		},
 		"stats": {
 			"damage": 75,
 			"knockback": 7
@@ -25,7 +33,11 @@
 	},
 	{
 		"name": "Mace",
-		"sprite": "mace",
+		"sprite": {
+			"key": "mace",
+			"texture": "dungeon-sprites",
+			"frame": "frames/weapon_mace.png"
+		},
 		"stats": {
 			"damage": 90,
 			"knockback": 4

@@ -43,11 +43,11 @@ export class Player extends Entity {
 		this.setState(PlayerState.Default);
 		this.setData({
 			animations: data.animations,
-			score: data.score,
-			gold: data.gold,
-			lives: data.lives,
-			maxLives: data.maxLives,
-			speed: data.speed,
+			score: data.stats.score,
+			gold: data.stats.gold,
+			lives: data.stats.lives,
+			maxLives: data.stats.maxLives,
+			speed: data.stats.speed,
 			size: data.size,
 			weapon: data.weapon
 		});

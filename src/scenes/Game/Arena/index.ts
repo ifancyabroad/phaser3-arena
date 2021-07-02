@@ -78,13 +78,13 @@ export class Arena extends Phaser.Scene {
     }
 
     private generatePlayer() {
-        const hero = this.add.sprite(0, 0, 'dungeon-sprites', `frames/${this.playerData.sprite}_idle_anim_f0.png`);
+        // const hero = this.add.sprite(0, 0, 'dungeon-sprites', `frames/${this.playerData.sprite}_idle_anim_f0.png`);
         const spawn = this.tileMap.findObject('Player', (object) => object.name === 'Spawn');
         this.player = new Player(
             this,
             spawn.x,
             spawn.y,
-            [hero],
+            [],
             this.playerData
         );
 
@@ -101,8 +101,8 @@ export class Arena extends Phaser.Scene {
         if (enemyLayer) {
             enemyLayer.objects.forEach(object => {
                 const data = this.enemyData.find(e => e.name === object.name);
-                const sprite = this.add.sprite(0, 0, 'dungeon-sprites', `frames/${data.sprite}_idle_anim_f0.png`);
-                const enemy = new Enemy(this, object.x, object.y, [sprite], data);
+                // const sprite = this.add.sprite(0, 0, 'dungeon-sprites', `frames/${data.sprite}_idle_anim_f0.png`);
+                const enemy = new Enemy(this, object.x, object.y, [], data);
                 this.enemies.add(enemy);
             });
         }
@@ -114,8 +114,8 @@ export class Arena extends Phaser.Scene {
         if (npcLayer) {
             npcLayer.objects.forEach(object => {
                 const data = this.npcData.find(npc => npc.name === object.name)
-                const sprite = this.add.sprite(0, 0, 'npc-sprites', `frames/${data.sprite}_Idle_1.png`);
-                const npc = new NPC(this, object.x, object.y, [sprite], data);
+                // const sprite = this.add.sprite(0, 0, 'npc-sprites', `frames/${data.sprite}_Idle_1.png`);
+                const npc = new NPC(this, object.x, object.y, [], data);
                 this.npcs.add(npc);
             });
         }
@@ -131,7 +131,7 @@ export class Arena extends Phaser.Scene {
         const weapon = this.player.getData('weapon');
         if (weapon) {
             const data = this.weaponData.find(w => w.name === weapon)
-            const playerWeapon = new Weapon(this, this.player.x, this.player.y, 'dungeon-sprites', `frames/weapon_${data.sprite}.png`, data);
+            const playerWeapon = new Weapon(this, this.player.x, this.player.y, data.sprite.texture, data.sprite.frame, data);
             this.weapons.add(playerWeapon);
             playerWeapon.setEquipped();
         }
@@ -140,7 +140,7 @@ export class Arena extends Phaser.Scene {
         if (weaponLayer) {
             weaponLayer.objects.forEach(object => {
                 const data = this.weaponData.find(w => w.name === object.name)
-                const weapon = new Weapon(this, object.x, object.y, 'dungeon-sprites', `frames/weapon_${data.sprite}.png`, data);
+                const weapon = new Weapon(this, object.x, object.y, data.sprite.texture, data.sprite.frame, data);
                 this.weapons.add(weapon);
             });
         }
