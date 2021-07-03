@@ -1,4 +1,4 @@
-import { GameData } from "../../../types";
+import { GameData } from "../../types";
 
 export class Transition extends Phaser.Scene {
 
@@ -7,10 +7,9 @@ export class Transition extends Phaser.Scene {
     }
   
     create(data: GameData) {
-      const levelData = data.level;
-      const playerData = data.player;
+      const {name} = data.level;
   
-      this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 2, levelData.name, {
+      this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 2, name, {
         fontFamily: 'EquipmentPro',
         fontSize: '24px'
       }).setOrigin(0.5);
@@ -19,10 +18,7 @@ export class Transition extends Phaser.Scene {
       this.time.delayedCall(1000, () => {
         this.cameras.main.fadeOut(600);
         this.cameras.main.once('camerafadeoutcomplete', () => {
-          this.scene.start(levelData.key, {
-            level: levelData,
-            player: playerData
-          });
+          this.scene.start('game', data);
         }, this);
       });
     }

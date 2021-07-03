@@ -1,14 +1,14 @@
-import { Arena } from "../../scenes";
+import { Game } from "../../scenes";
 import { EntityData } from "../../types";
 
 export class Entity extends Phaser.GameObjects.Container {
 	readonly sprite: Phaser.GameObjects.Sprite;
-	readonly scene: Arena;
+	readonly scene: Game;
 
 	constructor(scene: Phaser.Scene, x: number, y: number, children: Phaser.GameObjects.GameObject[], data: EntityData) {
 		super(scene, x, y, children);
 
-		this.scene = scene as Arena;
+		this.scene = scene as Game;
 
 		this.sprite = scene.add.sprite(0, 0, data.sprite.texture, data.sprite.frame);
 		this.add(this.sprite);
@@ -24,6 +24,6 @@ export class Entity extends Phaser.GameObjects.Container {
 		this.add(shadow);
 		this.sendToBack(shadow);
 
-		this.setData(data);
+		this.setData(Phaser.Utils.Objects.DeepCopy(data));
 	}
 }

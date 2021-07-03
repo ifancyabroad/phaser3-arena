@@ -1,5 +1,5 @@
-import { sceneEvents } from "../../../events/EventsCentre";
-import { PlayerData } from "../../../types";
+import { sceneEvents } from "../../events/EventsCentre";
+import { PlayerData } from "../../types";
 
 export class GameUI extends Phaser.Scene {
     hearts: Phaser.GameObjects.Group;

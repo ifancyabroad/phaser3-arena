@@ -133,7 +133,7 @@ export class Menu extends Phaser.Scene {
 		const PLAYER_DATA = this.cache.json.get('characterData') as PlayerData[];
 		this.cameras.main.fadeOut(600);
 		this.cameras.main.once('camerafadeoutcomplete', () => {
-			this.scene.start('main', {
+			this.scene.start('transition', {
 				level: LEVEL_CONFIG[0],
 				player: PLAYER_DATA[0]
 			});

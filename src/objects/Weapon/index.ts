@@ -1,4 +1,4 @@
-import { Arena } from "../../scenes";
+import { Game } from "../../scenes";
 import { WeaponData } from "../../types";
 import { Enemy } from "../Enemy";
 
@@ -10,14 +10,14 @@ enum WeaponState {
 }
 
 export class Weapon extends Phaser.GameObjects.Sprite {
-    readonly scene: Arena;
+    readonly scene: Game;
     readonly collider: Phaser.Physics.Arcade.Collider;
     flipped: boolean = false;
 
     constructor(scene: Phaser.Scene, x: number, y: number, sprite: string, frame: string, data: WeaponData) {
         super(scene, x, y, sprite, frame);
 
-        this.scene = scene as Arena;
+        this.scene = scene as Game;
         this.scene.add
             .existing(this)
             .setDepth(4)
