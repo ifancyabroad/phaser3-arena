@@ -2,15 +2,17 @@ import { sceneEvents } from "../../../events/EventsCentre";
 import { PlayerData } from "../../../types";
 
 export class GameUI extends Phaser.Scene {
-    private hearts: Phaser.GameObjects.Group;
-    private score: Phaser.GameObjects.Text;
-    private gold: Phaser.GameObjects.Text;
+    hearts: Phaser.GameObjects.Group;
+    score: Phaser.GameObjects.Text;
+    gold: Phaser.GameObjects.Text;
+    positionY: number;
 
     constructor() {
         super('game-ui');
     }
 
     create(data: PlayerData) {
+        this.positionY = this.game.renderer.height - 25;
         this.setHearts(data.stats.lives, data.stats.maxLives);
         this.setScore(data.stats.score);
         this.setGold(data.stats.gold);
@@ -34,8 +36,8 @@ export class GameUI extends Phaser.Scene {
             key: 'dungeon-sprites',
             frame: 'frames/ui_heart_full.png',
             setXY: {
-                x: 10,
-                y: 10,
+                x: 20,
+                y: this.positionY,
                 stepX: 16
             },
             quantity: maxLives / 2
@@ -59,9 +61,8 @@ export class GameUI extends Phaser.Scene {
     }
 
     private setScore(score: number) {
-        let x = this.game.renderer.width - 5;
-        let y = 10;
-        this.score = this.add.text(x, y, `Score: ${score}`, {
+        const x = this.game.renderer.width - 20;
+        this.score = this.add.text(x, this.positionY, `Score: ${score}`, {
             fontFamily: 'EquipmentPro',
             fontSize: '18px'
         }).setOrigin(1, 0.5);
@@ -72,10 +73,8 @@ export class GameUI extends Phaser.Scene {
     }
 
     private setGold(gold: number) {
-        let x = 80;
-        let y = 10;
-        const goldIcon = this.add.image(x, y, 'dungeon-sprites', 'frames/coin_anim_f0.png').setScale(1.5);
-        this.gold = this.add.text(goldIcon.x + goldIcon.width + 2, y, gold.toString(), {
+        const goldIcon = this.add.image(100, this.positionY, 'dungeon-sprites', 'frames/coin_anim_f0.png').setScale(1.5);
+        this.gold = this.add.text(goldIcon.x + goldIcon.width + 2, this.positionY, gold.toString(), {
             fontFamily: 'EquipmentPro',
             fontSize: '18px'
         }).setOrigin(0, 0.5);

@@ -30,7 +30,7 @@ export class GameOver extends Phaser.Scene {
             this.sound.play('menuSelect');
             this.cameras.main.fadeOut(600);
             this.cameras.main.once('camerafadeoutcomplete', () => {
-                this.scene.stop('hud');
+                this.scene.stop('game-ui');
                 this.scene.stop('arena');
                 this.scene.stop('main');
                 this.scene.start('menu');

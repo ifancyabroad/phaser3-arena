@@ -1,3 +1,4 @@
+import { sceneEvents } from "../../../events/EventsCentre";
 import { GameData, LevelData, PlayerData } from "../../../types";
 
 export class Main extends Phaser.Scene {
@@ -12,6 +13,7 @@ export class Main extends Phaser.Scene {
         this.levelData = data.level;
         this.playerData = data.player;
         this.gameStart();
+        sceneEvents.on('game-over', this.gameOver, this);
     }
 
     private gameStart() {
