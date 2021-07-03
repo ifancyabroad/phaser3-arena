@@ -1,4 +1,4 @@
-import { LEVEL_DATA, MENU_ITEMS } from "../../config";
+import { LEVEL_CONFIG, MENU_ITEMS } from "../../config";
 import { PlayerData } from "../../types";
 
 export class Menu extends Phaser.Scene {
@@ -134,7 +134,7 @@ export class Menu extends Phaser.Scene {
 		this.cameras.main.fadeOut(600);
 		this.cameras.main.once('camerafadeoutcomplete', () => {
 			this.scene.start('main', {
-				level: LEVEL_DATA[0],
+				level: LEVEL_CONFIG[0],
 				player: PLAYER_DATA[0]
 			});
 		}, this);

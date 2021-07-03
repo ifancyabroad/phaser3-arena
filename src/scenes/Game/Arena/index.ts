@@ -1,3 +1,4 @@
+import { LEVEL_CONFIG } from "../../../config";
 import { Coin, Enemy, NPC, Player, Spikes, Weapon } from "../../../objects";
 import { EnemyData, GameData, LevelData, NPCData, PlayerData, WeaponData } from "../../../types";
 import { debugDraw } from "../../../utils";
@@ -188,60 +189,36 @@ export class Arena extends Phaser.Scene {
     private roomComplete() {
         this.cleared = true;
         this.time.delayedCall(400, () => {
-            this.openStairs();
+            this.openDoors();
         }, null, this);
     }
 
     private openDoors() {
         this.sound.play('door-open');
+
+        /*
+         *  Replace door tiles with open door tiles
+         *  Set collision on the open door tiles
+         */
         this.layerWallsBehind.replaceByIndex(451, 454);
         this.layerWallsBehind.replaceByIndex(452, 455);
         this.layerWallsBehind.replaceByIndex(483, 486);
         this.layerWallsBehind.replaceByIndex(484, 487);
+        this.layerWallsBehind.setCollision([486, 487], false);
 
-        // Remove collision on door base
-        // this.layerWallsBehind.setCollision([486, 487], false);
-
-        // Set collision callback for door top
-        // const door = this.layerWallsBehind.findByIndex(454);
-        // this.layerWallsBehind.setTileLocationCallback(door.x, door.y, 1, 1, this.nextRoom, this);
-    }
-
-    private openStairs() {
-        this.sound.play('stairs-open');
-
-        /*
-         *  Find the hidden object
-         *  Replace object with stairs down tile
-         *  Set collision on the stairs down
-         */
-        const hiddenLayer = this.tileMap.getObjectLayer('Hidden');
-        const exit = hiddenLayer.objects.find(object => object.name === 'Exit');
-        this.layerGround.removeTileAtWorldXY(exit.x, exit.y);
-        this.layerGround.putTileAtWorldXY(358, exit.x, exit.y);
-        const stairs = this.layerGround.findByIndex(358);
-        this.layerGround.setTileLocationCallback(stairs.x, stairs.y, 1, 1, this.nextRoom, this);
+        const door = this.layerWallsBehind.findByIndex(454);
+        this.layerWallsBehind.setTileLocationCallback(door.x, door.y, 1, 1, this.enterShop, this);
         this.player.updateScore(500);
     }
 
-    private nextRoom() {
-        this.scene.restart({
-            level: this.levelData,
-            player: this.player.data.getAll()
-        });
+    private enterShop() {
+        this.cameras.main.fadeOut(600);
+        this.cameras.main.once('camerafadeoutcomplete', () => {
+            const shop = LEVEL_CONFIG.find(({key}) => key === 'shop');
+            this.scene.start('transition', {
+                level: shop,
+                player: this.player.data.getAll()
+            });
+        }, this);
     }
-
-    // private nextFloor() {
-    //     const stairs = this.layerGround.findByIndex(358);
-    //     stairs.setCollisionCallback(null);
-
-    //     this.cameras.main.fadeOut(600);
-    //     this.cameras.main.once('camerafadeoutcomplete', () => {
-    //         this.scene.start('transition', {
-    //             floor: this.mainScene.dungeon.getFloor(this.floorId + 1),
-    //             room: this.mainScene.dungeon.getRoom(this.floorId + 1, 1),
-    //             player: this.player.data.getAll()
-    //         });
-    //     }, this);
-    // }
 }

@@ -10,10 +10,15 @@ export const GAME_CONFIG = {
 
 }
 
-export const LEVEL_DATA: LevelData[] = [
+export const LEVEL_CONFIG: LevelData[] = [
     {
         key: 'arena',
         name: 'The Arena',
+        music: 'dungeonMusic'
+    },
+    {
+        key: 'shop',
+        name: 'The Shop',
         music: 'dungeonMusic'
     }
 ];

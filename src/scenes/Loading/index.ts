@@ -33,9 +33,9 @@ export class Loading extends Phaser.Scene {
 	}
 
 	private loadTextures() {
-		this.load.atlas('dungeon-sprites', 'assets/texture-atlas/0x72_DungeonTilesetII_v1.3.png', 'assets/texture-atlas/0x72_DungeonTilesetII_v1.3.json');
-		this.load.atlas('npc-sprites', 'assets/npcs/knights.png', 'assets/npcs/knights.json');
-		this.load.image('tiles', 'assets/rooms/0x72_DungeonTilesetII_v1.3.png');
+		this.load.atlas('dungeon-sprites', 'assets/textures/0x72_DungeonTilesetII_v1.3.png', 'assets/textures/0x72_DungeonTilesetII_v1.3.json');
+		this.load.atlas('npc-sprites', 'assets/textures/knights.png', 'assets/textures/knights.json');
+		this.load.image('tiles', 'assets/levels/0x72_DungeonTilesetII_v1.3.png');
 		this.load.image('orc-blood', 'assets/textures/orc-blood.png');
 		this.load.image('undead-blood', 'assets/textures/undead-blood.png');
 		this.load.image('demon-blood', 'assets/textures/demon-blood.png');
@@ -72,7 +72,8 @@ export class Loading extends Phaser.Scene {
 
 	private loadMaps() {
 		this.load.tilemapTiledJSON([
-			{ key: `arena`, url: `assets/rooms/arena.json` }
+			{ key: "arena", url: "assets/levels/arena.json" },
+			{ key: "shop", url: "assets/levels/shop.json" },
 		])
 	}
 

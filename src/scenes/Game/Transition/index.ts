@@ -19,7 +19,7 @@ export class Transition extends Phaser.Scene {
       this.time.delayedCall(1000, () => {
         this.cameras.main.fadeOut(600);
         this.cameras.main.once('camerafadeoutcomplete', () => {
-          this.scene.start('arena', {
+          this.scene.start(levelData.key, {
             level: levelData,
             player: playerData
           });
