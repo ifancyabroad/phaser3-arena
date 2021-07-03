@@ -136,7 +136,6 @@ export class Player extends Entity {
 	private death() {
 		this.setState(PlayerState.Dead);
 		this.setActive(false);
-		this.scene.scene.setActive(false);
 		sceneEvents.emit('game-over');
 	}
 }
