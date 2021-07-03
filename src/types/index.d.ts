@@ -39,9 +39,9 @@ export interface EntityData {
 
 export interface PlayerData extends EntityData {
     weapon: string;
+    score: number;
+    gold: number;
     stats: {
-        score: number;
-        gold: number;
         lives: number;
         maxLives: number;
         speed: number;

@@ -38,19 +38,8 @@ export class Player extends Entity {
 
 		/*
          *  Set to Default state
-         *  Set current data
          */
 		this.setState(PlayerState.Default);
-		this.setData({
-			animations: data.animations,
-			score: data.stats.score,
-			gold: data.stats.gold,
-			lives: data.stats.lives,
-			maxLives: data.stats.maxLives,
-			speed: data.stats.speed,
-			size: data.size,
-			weapon: data.weapon
-		});
 	}
 
 	update() {
@@ -59,7 +48,7 @@ export class Player extends Entity {
 	}
 
 	private aliveCheck() {
-		if (this.data.values.lives <= 0) {
+		if (this.data.values.stats.lives <= 0) {
 			this.death();
 		}
 	}
@@ -87,16 +76,16 @@ export class Player extends Entity {
 
 		if (this.body instanceof Phaser.Physics.Arcade.Body) {
 			if (this.controls.left.isDown) {
-				this.body.setVelocityX(-this.getData('speed'));
+				this.body.setVelocityX(-this.data.values.stats.speed);
 			} else if (this.controls.right.isDown) {
-				this.body.setVelocityX(this.getData('speed'));
+				this.body.setVelocityX(this.data.values.stats.speed);
 			} else {
 				this.body.setVelocityX(0);
 			}
 			if (this.controls.up.isDown) {
-				this.body.setVelocityY(-this.getData('speed'));
+				this.body.setVelocityY(-this.data.values.stats.speed);
 			} else if (this.controls.down.isDown) {
-				this.body.setVelocityY(this.getData('speed'));
+				this.body.setVelocityY(this.data.values.stats.speed);
 			} else {
 				this.body.setVelocityY(0);
 			}
@@ -115,8 +104,8 @@ export class Player extends Entity {
 		if (this.state === PlayerState.Default) {
 			this.stunned();
 			this.flash();
-			this.data.values.lives--;
-			sceneEvents.emit('player-health-changed', this.getData('lives'));
+			this.data.values.stats.lives--;
+			sceneEvents.emit('player-health-changed', this.data.values.stats.lives);
 		}
 	}
 

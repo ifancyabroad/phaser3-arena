@@ -40,9 +40,9 @@
             }
         ],
         "weapon": "Sword",
+        "score": 0,
+        "gold": 0,
         "stats": {
-            "score": 0,
-            "gold": 0,
             "lives": 6,
             "maxLives": 6,
             "speed": 100

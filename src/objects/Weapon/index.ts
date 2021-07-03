@@ -31,12 +31,7 @@ export class Weapon extends Phaser.GameObjects.Sprite {
          */
         this.setState(WeaponState.Default);
         this.setName(data.name);
-        this.setData({
-            damage: data.stats.damage,
-            knockback: data.stats.knockback,
-            sprite: data.sprite,
-            size: data.size
-        });
+        this.setData(data);
     }
 
     update() {

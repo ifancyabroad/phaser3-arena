@@ -11,13 +11,6 @@ export class NPC extends Entity {
 			this.body.immovable = true;
 		}
 
-		this.setData({
-			type: data.type,
-			animations: data.animations,
-			size: data.size,
-			sprite: data.sprite
-		});
-
 		const animation: Animation = this.getData('animations').find((animation: Animation) => animation.type === "idle")
 		this.sprite.play(animation.key, true);
 	}

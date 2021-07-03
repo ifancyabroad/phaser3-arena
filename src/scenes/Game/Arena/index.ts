@@ -70,7 +70,7 @@ export class Arena extends Phaser.Scene {
     }
 
     private generateMap() {
-        this.tileMap = this.make.tilemap({ key: this.levelData.key});
+        this.tileMap = this.make.tilemap({ key: this.levelData.key });
         const tileset = this.tileMap.addTilesetImage('0x72_DungeonTilesetII_v1.3', 'tiles');
         this.layerGround = this.tileMap.createLayer('Below Player', tileset).setDepth(1);
         this.layerWallsBehind = this.tileMap.createLayer('Walls Below', tileset).setDepth(2);
@@ -207,18 +207,22 @@ export class Arena extends Phaser.Scene {
         this.layerWallsBehind.setCollision([486, 487], false);
 
         const door = this.layerWallsBehind.findByIndex(454);
-        this.layerWallsBehind.setTileLocationCallback(door.x, door.y, 1, 1, this.enterShop, this);
+        this.layerWallsBehind.setTileLocationCallback(door.x, door.y, 1, 1, this.exitLevel, this);
         this.player.updateScore(500);
     }
 
-    private enterShop() {
-        this.cameras.main.fadeOut(600);
-        this.cameras.main.once('camerafadeoutcomplete', () => {
-            const shop = LEVEL_CONFIG.find(({key}) => key === 'shop');
-            this.scene.start('transition', {
-                level: shop,
-                player: this.player.data.getAll()
-            });
-        }, this);
+    private exitLevel() {
+        const level = LEVEL_CONFIG.find(({key}) => key !== this.levelData.key);
+        this.scene.restart({
+            level,
+            player: this.player.data.getAll()
+        });
+        // this.cameras.main.fadeOut(600);
+        // this.cameras.main.once('camerafadeoutcomplete', () => {
+        //     this.scene.start('transition', {
+        //         level,
+        //         player: this.player.data.getAll()
+        //     });
+        // }, this);
     }
 }

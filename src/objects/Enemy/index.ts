@@ -34,18 +34,11 @@ export class Enemy extends Entity {
 
 		/*
          *  Set to Default state
-         *  Set enemy data
+         *  Set additional enemy data
          */
 		this.setState(EnemyState.Default);
 		this.setData({
-			type: data.type,
-			animations: data.animations,
-			value: data.value,
-			health: data.stats.health,
 			maxHealth: data.stats.health,
-			speed: data.stats.speed,
-			size: data.size,
-			sprite: data.sprite
 		});
 	}
 
@@ -75,7 +68,7 @@ export class Enemy extends Entity {
 	}
 
 	private aliveCheck() {
-		if (this.data.values.health <= 0) {
+		if (this.data.values.stats.health <= 0) {
 			this.setState(EnemyState.Dead);
 		}
 	}
@@ -108,7 +101,7 @@ export class Enemy extends Entity {
 		if ('moves' in this.body) {
 			this.body.moves = true;
 		}
-		this.scene.physics.moveToObject(this, this.scene.player, this.getData('speed'));
+		this.scene.physics.moveToObject(this, this.scene.player, this.data.values.stats.speed);
 	}
 
 	private attackPlayer() {
@@ -122,8 +115,8 @@ export class Enemy extends Entity {
 		this.scene.sound.play(`${this.getData('type')}-hit`);
 		this.stunned();
 		this.flash();
-		this.knockback(this.scene.player.weapon.getData('knockback'));
-		this.data.values.health -= this.scene.player.weapon.getData('damage');
+		this.knockback(this.scene.player.weapon.data.values.stats.knockback);
+		this.data.values.stats.health -= this.scene.player.weapon.data.values.stats.damage;
 	}
 
 	private stunned() {

@@ -14,8 +14,8 @@ export class GameUI extends Phaser.Scene {
     create(data: PlayerData) {
         this.positionY = this.game.renderer.height - 25;
         this.setHearts(data.stats.lives, data.stats.maxLives);
-        this.setScore(data.stats.score);
-        this.setGold(data.stats.gold);
+        this.setScore(data.score);
+        this.setGold(data.gold);
 
         sceneEvents.on('player-health-changed', this.updateHearts, this);
         sceneEvents.on('player-score-changed', this.updateScore, this);
