@@ -1,11 +1,10 @@
-import { Physics, Scene } from "phaser";
 import { Arena } from "../../scenes";
 
 export class Spikes extends Phaser.Physics.Arcade.Sprite {
 	readonly scene: Arena;
-	readonly collider: Physics.Arcade.Collider;
+	readonly collider: Phaser.Physics.Arcade.Collider;
 
-	constructor(scene: Scene, x: number, y: number, sprite: string, frame: string) {
+	constructor(scene: Phaser.Scene, x: number, y: number, sprite: string, frame: string) {
 		super(scene, x, y, sprite, frame);
 
 		this.scene = scene as Arena;

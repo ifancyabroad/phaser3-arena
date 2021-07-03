@@ -1,12 +1,11 @@
-import { GameObjects, Scene } from "phaser";
 import { Arena } from "../../scenes";
 import { EntityData } from "../../types";
 
 export class Entity extends Phaser.GameObjects.Container {
-	readonly sprite: GameObjects.Sprite;
+	readonly sprite: Phaser.GameObjects.Sprite;
 	readonly scene: Arena;
 
-	constructor(scene: Scene, x: number, y: number, children: GameObjects.GameObject[], data: EntityData) {
+	constructor(scene: Phaser.Scene, x: number, y: number, children: Phaser.GameObjects.GameObject[], data: EntityData) {
 		super(scene, x, y, children);
 
 		this.scene = scene as Arena;

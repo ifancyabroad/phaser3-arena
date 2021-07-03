@@ -1,4 +1,3 @@
-import { GameObjects, Scene } from "phaser";
 import { Animation, EnemyData } from "../../types";
 import { Entity } from "../Entity";
 
@@ -10,10 +9,10 @@ enum EnemyState {
 }
 
 export class Enemy extends Entity {
-	readonly particles: GameObjects.Particles.ParticleEmitterManager;
-	readonly emitter: GameObjects.Particles.ParticleEmitter;
+	readonly particles: Phaser.GameObjects.Particles.ParticleEmitterManager;
+	readonly emitter: Phaser.GameObjects.Particles.ParticleEmitter;
 
-	constructor(scene: Scene, x: number, y: number, children: GameObjects.GameObject[], data: EnemyData) {
+	constructor(scene: Phaser.Scene, x: number, y: number, children: Phaser.GameObjects.GameObject[], data: EnemyData) {
 		super(scene, x, y, children, data);
 
 		if (this.body instanceof Phaser.Physics.Arcade.Body) {

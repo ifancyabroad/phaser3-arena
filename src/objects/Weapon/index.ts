@@ -1,4 +1,3 @@
-import { GameObjects, Physics, Scene } from "phaser";
 import { Arena } from "../../scenes";
 import { WeaponData } from "../../types";
 import { Enemy } from "../Enemy";
@@ -12,10 +11,10 @@ enum WeaponState {
 
 export class Weapon extends Phaser.GameObjects.Sprite {
     readonly scene: Arena;
-    readonly collider: Physics.Arcade.Collider;
+    readonly collider: Phaser.Physics.Arcade.Collider;
     flipped: boolean = false;
 
-    constructor(scene: Scene, x: number, y: number, sprite: string, frame: string, data: WeaponData) {
+    constructor(scene: Phaser.Scene, x: number, y: number, sprite: string, frame: string, data: WeaponData) {
         super(scene, x, y, sprite, frame);
 
         this.scene = scene as Arena;
@@ -134,7 +133,7 @@ export class Weapon extends Phaser.GameObjects.Sprite {
         }
     }
 
-    private hit(object1: GameObjects.GameObject, object2: GameObjects.GameObject) {
+    private hit(object1: Phaser.GameObjects.GameObject, object2: Phaser.GameObjects.GameObject) {
         const enemy = object2 as Enemy;
         enemy.takeHit();
     }

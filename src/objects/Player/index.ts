@@ -1,4 +1,4 @@
-import { GameObjects, Input, Scene } from "phaser";
+import { sceneEvents } from "../../events/EventsCentre";
 import { Animation, PlayerData } from "../../types";
 import { Entity } from "../Entity";
 import { Weapon } from "../Weapon";
@@ -10,17 +10,17 @@ enum PlayerState {
 }
 
 export class Player extends Entity {
-	readonly pointer: Input.Pointer;
+	readonly pointer: Phaser.Input.Pointer;
 	readonly controls: {
-		up?: Input.Keyboard.Key,
-		down?: Input.Keyboard.Key,
-		left?: Input.Keyboard.Key,
-		right?: Input.Keyboard.Key,
-		attack?: Input.Keyboard.Key,
+		up?: Phaser.Input.Keyboard.Key,
+		down?: Phaser.Input.Keyboard.Key,
+		left?: Phaser.Input.Keyboard.Key,
+		right?: Phaser.Input.Keyboard.Key,
+		attack?: Phaser.Input.Keyboard.Key,
 	};
 	weapon?: Weapon;
 
-	constructor(scene: Scene, x: number, y: number, children: GameObjects.GameObject[], data: PlayerData) {
+	constructor(scene: Phaser.Scene, x: number, y: number, children: Phaser.GameObjects.GameObject[], data: PlayerData) {
 		super(scene, x, y, children, data);
 
 		if ('setOffset' in this.body) {
@@ -66,12 +66,12 @@ export class Player extends Entity {
 
 	public updateScore(points: number) {
 		this.data.values.score += points;
-		this.scene.events.emit('updateScore');
+		sceneEvents.emit('player-score-changed', this.getData('score'));
 	}
 
 	public updateGold(gold: number) {
 		this.data.values.gold += gold;
-		this.scene.events.emit('updateGold');
+		sceneEvents.emit('player-gold-changed', this.getData('gold'));
 	}
 
 	private controlManager() {
@@ -116,7 +116,7 @@ export class Player extends Entity {
 			this.stunned();
 			this.flash();
 			this.data.values.lives--;
-			this.scene.events.emit('updateHearts');
+			sceneEvents.emit('player-health-changed', this.getData('lives'));
 		}
 	}
 

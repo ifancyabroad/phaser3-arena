@@ -1,7 +1,5 @@
-import { Input } from "phaser";
-
 export class GameOver extends Phaser.Scene {
-    spacebar: Input.Keyboard.Key;
+    spacebar: Phaser.Input.Keyboard.Key;
 
     constructor() {
         super('gameOver');

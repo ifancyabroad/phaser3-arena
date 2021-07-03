@@ -1,4 +1,3 @@
-import { GameObjects, Sound, Tilemaps } from "phaser";
 import { Coin, Enemy, NPC, Player, Spikes, Weapon } from "../../../objects";
 import { EnemyData, GameData, LevelData, NPCData, PlayerData, WeaponData } from "../../../types";
 import { debugDraw } from "../../../utils";
@@ -11,16 +10,16 @@ export class Arena extends Phaser.Scene {
     weaponData: WeaponData[];
     cleared: boolean = false;
     player: Player;
-    enemies: GameObjects.Group;
-    npcs: GameObjects.Group;
-    weapons: GameObjects.Group;
-    items: GameObjects.Group;
-    spikes: GameObjects.Group;
-    music: Sound.BaseSound;
-    tileMap: Tilemaps.Tilemap;
-    layerGround: Tilemaps.TilemapLayer;
-    layerWallsBehind: Tilemaps.TilemapLayer;
-    layerWallsInFront: Tilemaps.TilemapLayer;
+    enemies: Phaser.GameObjects.Group;
+    npcs: Phaser.GameObjects.Group;
+    weapons: Phaser.GameObjects.Group;
+    items: Phaser.GameObjects.Group;
+    spikes: Phaser.GameObjects.Group;
+    music: Phaser.Sound.BaseSound;
+    tileMap: Phaser.Tilemaps.Tilemap;
+    layerGround: Phaser.Tilemaps.TilemapLayer;
+    layerWallsBehind: Phaser.Tilemaps.TilemapLayer;
+    layerWallsInFront: Phaser.Tilemaps.TilemapLayer;
 
     constructor() {
         super('arena');
@@ -78,7 +77,6 @@ export class Arena extends Phaser.Scene {
     }
 
     private generatePlayer() {
-        // const hero = this.add.sprite(0, 0, 'dungeon-sprites', `frames/${this.playerData.sprite}_idle_anim_f0.png`);
         const spawn = this.tileMap.findObject('Player', (object) => object.name === 'Spawn');
         this.player = new Player(
             this,
@@ -88,9 +86,8 @@ export class Arena extends Phaser.Scene {
             this.playerData
         );
 
-        // Launch HUD
-        // this.scene.launch('hud', { room: this, player: this.player });
-        // this.scene.bringToTop('hud');
+        this.scene.launch('game-ui', this.playerData);
+        this.scene.bringToTop('game-ui');
     }
 
     private generateEnemies() {
@@ -101,7 +98,6 @@ export class Arena extends Phaser.Scene {
         if (enemyLayer) {
             enemyLayer.objects.forEach(object => {
                 const data = this.enemyData.find(e => e.name === object.name);
-                // const sprite = this.add.sprite(0, 0, 'dungeon-sprites', `frames/${data.sprite}_idle_anim_f0.png`);
                 const enemy = new Enemy(this, object.x, object.y, [], data);
                 this.enemies.add(enemy);
             });
@@ -114,7 +110,6 @@ export class Arena extends Phaser.Scene {
         if (npcLayer) {
             npcLayer.objects.forEach(object => {
                 const data = this.npcData.find(npc => npc.name === object.name)
-                // const sprite = this.add.sprite(0, 0, 'npc-sprites', `frames/${data.sprite}_Idle_1.png`);
                 const npc = new NPC(this, object.x, object.y, [], data);
                 this.npcs.add(npc);
             });

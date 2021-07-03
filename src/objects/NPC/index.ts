@@ -1,10 +1,9 @@
-import { GameObjects, Scene } from "phaser";
 import { Animation, NPCData } from "../../types";
 import { Entity } from "../Entity";
 
 export class NPC extends Entity {
 
-	constructor(scene: Scene, x: number, y: number, children: GameObjects.GameObject[], data: NPCData) {
+	constructor(scene: Phaser.Scene, x: number, y: number, children: Phaser.GameObjects.GameObject[], data: NPCData) {
 		super(scene, x, y, children, data);
 
 		if (this.body instanceof Phaser.Physics.Arcade.Body) {

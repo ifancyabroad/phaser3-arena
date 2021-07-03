@@ -1,17 +1,16 @@
-import { GameObjects, Input, Sound } from "phaser";
 import { LEVEL_DATA, MENU_ITEMS } from "../../config";
 import { PlayerData } from "../../types";
 
 export class Menu extends Phaser.Scene {
-	music: Sound.BaseSound;
-	options: GameObjects.Group;
-	cursor: GameObjects.Container;
+	music: Phaser.Sound.BaseSound;
+	options: Phaser.GameObjects.Group;
+	cursor: Phaser.GameObjects.Container;
 	currentIndex: number = 0;
 	keys: {
-		up?: Input.Keyboard.Key,
-		down?: Input.Keyboard.Key,
-		space?: Input.Keyboard.Key,
-		enter?: Input.Keyboard.Key
+		up?: Phaser.Input.Keyboard.Key,
+		down?: Phaser.Input.Keyboard.Key,
+		space?: Phaser.Input.Keyboard.Key,
+		enter?: Phaser.Input.Keyboard.Key
 	};
 
 	constructor() {
@@ -91,8 +90,10 @@ export class Menu extends Phaser.Scene {
 			stroke: '#000',
 			strokeThickness: 4
 		}).setOrigin(0.5));
-		this.options = this.add.group(menuItems);
-		const option = this.options.getChildren()[this.currentIndex] as GameObjects.Text;
+		this.options = this.add.group(menuItems, {
+			classType: Phaser.GameObjects.Text
+		});
+		const option = this.options.getChildren()[this.currentIndex] as Phaser.GameObjects.Text;
 		this.cursor = this.add.container(option.x, option.y, [
 			this.add.sprite(-(option.width / 2 + 24), 0, 'dungeon-sprites', 'frames/weapon_spear.png').setAngle(90),
 			this.add.sprite(option.width / 2 + 24, 0, 'dungeon-sprites', 'frames/weapon_spear.png').setAngle(270)
@@ -112,10 +113,10 @@ export class Menu extends Phaser.Scene {
 		if (this.currentIndex + index >= 0 &&
 			this.currentIndex + index < this.options.getLength()) {
 			this.currentIndex += index;
-			const option = this.options.getChildren()[this.currentIndex] as GameObjects.Text;
+			const option = this.options.getChildren()[this.currentIndex] as Phaser.GameObjects.Text;
 			this.cursor.setPosition(option.x, option.y);
-			const cursorLeft = this.cursor.getAt(0) as GameObjects.Sprite;
-			const cursorRight = this.cursor.getAt(1) as GameObjects.Sprite;
+			const cursorLeft = this.cursor.getAt(0) as Phaser.GameObjects.Sprite;
+			const cursorRight = this.cursor.getAt(1) as Phaser.GameObjects.Sprite;
 			cursorLeft.setX(-(option.width / 2 + 24));
 			cursorRight.setX(option.width / 2 + 24);
 		}

@@ -1,11 +1,10 @@
 import 'phaser';
-import { Arena, Loading, Main, Menu, Transition } from './scenes';
-import { GameOver } from './scenes/Game/GameOver';
+import { Arena, GameOver, GameUI, Loading, Main, Menu, Transition } from './scenes';
 
 const config = {
     type: Phaser.AUTO,
     backgroundColor: '#000',
-    scene: [Loading, Menu, Main, Transition, Arena, GameOver],
+    scene: [Loading, Menu, Main, Transition, Arena, GameUI, GameOver],
     scale: {
         parent: 'game-container',
         mode: Phaser.Scale.FIT,
