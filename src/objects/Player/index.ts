@@ -17,6 +17,7 @@ export class Player extends Entity {
 		left?: Phaser.Input.Keyboard.Key,
 		right?: Phaser.Input.Keyboard.Key,
 		attack?: Phaser.Input.Keyboard.Key,
+		activate?: Phaser.Input.Keyboard.Key,
 	};
 	weapon?: Weapon;
 
@@ -26,6 +27,9 @@ export class Player extends Entity {
 		if ('setOffset' in this.body) {
 			this.body.setOffset(0, 6);
 		}
+		if ('setOffset' in this.rangeBox.body) {
+			this.rangeBox.body.setOffset(0, 6);
+		}
 
 		this.pointer = scene.input.activePointer;
 		this.controls = scene.input.keyboard.addKeys({
@@ -33,7 +37,8 @@ export class Player extends Entity {
 			down: Phaser.Input.Keyboard.KeyCodes.S,
 			left: Phaser.Input.Keyboard.KeyCodes.A,
 			right: Phaser.Input.Keyboard.KeyCodes.D,
-			attack: Phaser.Input.Keyboard.KeyCodes.SPACE
+			attack: Phaser.Input.Keyboard.KeyCodes.SPACE,
+			activate: Phaser.Input.Keyboard.KeyCodes.E
 		})
 
 		/*
@@ -68,6 +73,10 @@ export class Player extends Entity {
 			this.sprite.setFlipX(true);
 		} else {
 			this.sprite.setFlipX(false);
+		}
+
+		if (Phaser.Input.Keyboard.JustDown(this.controls.activate)) {
+			sceneEvents.emit('player-activate');
 		}
 
 		if ((Phaser.Input.Keyboard.JustDown(this.controls.attack) || this.pointer.isDown) && this.weapon) {

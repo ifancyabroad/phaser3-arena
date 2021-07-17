@@ -66,7 +66,7 @@
                         {
                          "name":"text",
                          "type":"string",
-                         "value":"Hello and welcome to the dungeon... Good luck and that..."
+                         "value":"I am the shopkeeper"
                         }],
                  "rotation":0,
                  "type":"",
@@ -196,7 +196,7 @@
         {
          "columns":32,
          "firstgid":1,
-         "image":"..\/..\/..\/..\/dungeon-game\/src\/assets\/rooms\/0x72_DungeonTilesetII_v1.3.png",
+         "image":"0x72_DungeonTilesetII_v1.3.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,

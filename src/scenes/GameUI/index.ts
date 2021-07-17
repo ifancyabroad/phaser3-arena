@@ -25,7 +25,7 @@ export class GameUI extends Phaser.Scene {
 			sceneEvents.off('player-health-changed', this.updateHearts, this);
 			sceneEvents.off('player-score-changed', this.updateScore, this);
 			sceneEvents.off('player-gold-changed', this.updateGold, this);
-		})
+		});
     }
 
     private setHearts(lives: number, maxLives: number) {

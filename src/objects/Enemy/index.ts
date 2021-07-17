@@ -90,7 +90,7 @@ export class Enemy extends Entity {
 	}
 
 	private collisionCheck() {
-		if (this.scene.physics.collide(this, this.scene.player)) {
+		if (this.scene.physics.overlap(this.rangeBox, this.scene.player)) {
 			this.setState(EnemyState.Attacking);
 		} else {
 			this.setState(EnemyState.Default);
@@ -98,15 +98,15 @@ export class Enemy extends Entity {
 	}
 
 	private findPlayer() {
-		if ('moves' in this.body) {
-			this.body.moves = true;
+		if ('setImmovable' in this.body) {
+			this.body.setImmovable(false);
 		}
 		this.scene.physics.moveToObject(this, this.scene.player, this.data.values.stats.speed);
 	}
 
 	private attackPlayer() {
-		if ('moves' in this.body) {
-			this.body.moves = false;
+		if ('setImmovable' in this.body) {
+			this.body.setImmovable(true);
 		}
 		this.scene.player.takeHit();
 	}

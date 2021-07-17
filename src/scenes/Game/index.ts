@@ -1,13 +1,14 @@
 import { LEVEL_CONFIG } from "../../config";
 import { sceneEvents } from "../../events/EventsCentre";
-import { Coin, Enemy, NPC, Player, Spikes, Weapon } from "../../objects";
+import { Button, Coin, Enemy, NPC, Player, Spikes, Weapon } from "../../objects";
 import { EnemyData, GameData, LevelData, NPCData, PlayerData, WeaponData } from "../../types";
 import { debugDraw } from "../../utils";
 
 enum LevelState {
     Default,
+    Active,
     Cleared,
-    Active
+    Complete
 }
 
 export class Game extends Phaser.Scene {
@@ -21,6 +22,7 @@ export class Game extends Phaser.Scene {
     enemies: Phaser.GameObjects.Group;
     npcs: Phaser.GameObjects.Group;
     weapons: Phaser.GameObjects.Group;
+    buttons: Phaser.GameObjects.Group;
     items: Phaser.GameObjects.Group;
     spikes: Phaser.GameObjects.Group;
     music: Phaser.Sound.BaseSound;
@@ -43,14 +45,15 @@ export class Game extends Phaser.Scene {
         /*
          *  Set to Default state
          */
-		this.state = LevelState.Default;
+        this.state = LevelState.Default;
 
         this.startMusic();
+        this.createGroups();
         this.generateMap();
         this.generatePlayer();
         this.generateNPCs();
-        this.generateEnemies();
         this.generateWeapons();
+        this.generateButtons();
         this.generateItems();
         this.generateSpikes();
         this.setCollision();
@@ -63,8 +66,16 @@ export class Game extends Phaser.Scene {
         this.player.update();
         this.enemies.getChildren().forEach(enemy => enemy.update());
         this.weapons.getChildren().forEach(weapon => weapon.update());
-        if (this.state === LevelState.Default && !this.enemies.getLength()) {
-            this.roomComplete();
+        this.stateManager();
+    }
+
+    private stateManager() {
+        switch (this.state) {
+            case LevelState.Active:
+                if (!this.enemies.getLength()) {
+                    this.waveComplete();
+                }
+                break;
         }
     }
 
@@ -82,44 +93,32 @@ export class Game extends Phaser.Scene {
         }
     }
 
+    private createGroups() {
+        this.enemies = this.add.group();
+        this.npcs = this.add.group();
+        this.weapons = this.add.group();
+        this.buttons = this.add.group();
+        this.items = this.add.group();
+        this.spikes = this.add.group();
+    }
+
     private generateMap() {
         this.tileMap = this.make.tilemap({ key: this.levelData.key });
         const tileset = this.tileMap.addTilesetImage('0x72_DungeonTilesetII_v1.3', 'tiles');
         this.layerGround = this.tileMap.createLayer('Below Player', tileset).setDepth(1);
         this.layerWallsBehind = this.tileMap.createLayer('Walls Below', tileset).setDepth(2);
         this.layerWallsInFront = this.tileMap.createLayer('Walls Above', tileset).setDepth(10);
+        this.setDoorCallback();
     }
 
     private generatePlayer() {
         const spawn = this.tileMap.findObject('Player', (object) => object.name === 'Spawn');
-        this.player = new Player(
-            this,
-            spawn.x,
-            spawn.y,
-            [],
-            this.playerData
-        );
-
+        this.player = new Player(this, spawn.x, spawn.y, [], this.playerData);
         this.scene.launch('game-ui', this.playerData);
         this.scene.bringToTop('game-ui');
     }
 
-    private generateEnemies() {
-        this.enemies = this.add.group({
-            classType: Enemy
-        });
-        const enemyLayer = this.tileMap.getObjectLayer('Enemies');
-        if (enemyLayer) {
-            enemyLayer.objects.forEach(object => {
-                const data = this.enemyData.find(e => e.name === object.name);
-                const enemy = new Enemy(this, object.x, object.y, [], data);
-                this.enemies.add(enemy);
-            });
-        }
-    }
-
     private generateNPCs() {
-        this.npcs = this.add.group();
         const npcLayer = this.tileMap.getObjectLayer('NPC');
         if (npcLayer) {
             npcLayer.objects.forEach(object => {
@@ -131,8 +130,6 @@ export class Game extends Phaser.Scene {
     }
 
     private generateWeapons() {
-        this.weapons = this.add.group();
-
         /*
          *  Get currently equipped weapon from player data
          *  Equip weapon to the player
@@ -155,8 +152,17 @@ export class Game extends Phaser.Scene {
         }
     }
 
+    private generateButtons() {
+        const buttonLayer = this.tileMap.getObjectLayer('Buttons');
+        if (buttonLayer) {
+            buttonLayer.objects.forEach(object => {
+                const button = new Button(this, object.x, object.y, 'dungeon-sprites', 'frames/chest_empty_open_anim_f0.png');
+                this.buttons.add(button);
+            });
+        }
+    }
+
     private generateItems() {
-        this.items = this.add.group();
         const itemLayer = this.tileMap.getObjectLayer('Items');
         if (itemLayer) {
             itemLayer.objects.forEach(object => {
@@ -167,8 +173,6 @@ export class Game extends Phaser.Scene {
     }
 
     private generateSpikes() {
-        this.spikes = this.add.group();
-
         /*
          *  Find spiked tiles from ground layer
          *  Add an interactable spike sprite
@@ -189,48 +193,91 @@ export class Game extends Phaser.Scene {
         this.layerWallsBehind.setCollisionByProperty({ collides: true });
         this.layerWallsInFront.setCollisionByProperty({ collides: true });
         this.physics.world.addCollider(this.player, this.npcs);
+        this.physics.world.addCollider(this.player, this.enemies);
         this.physics.world.addCollider(this.player, this.layerWallsBehind);
         this.physics.world.addCollider(this.player, this.layerWallsInFront);
         // this.physics.world.addCollider(this.enemies);
         this.physics.world.addCollider(this.enemies, this.layerWallsBehind);
         this.physics.world.addCollider(this.enemies, this.layerWallsInFront);
-        this.physics.world.createDebugGraphic();
-        debugDraw(this.layerWallsBehind, this);
-        debugDraw(this.layerWallsInFront, this);
+        // this.physics.world.createDebugGraphic();
+        // debugDraw(this.layerWallsBehind, this);
+        // debugDraw(this.layerWallsInFront, this);
     }
 
     private setEvents() {
         sceneEvents.on('game-over', this.gameOver, this);
+        sceneEvents.on('activate-arena', this.startWave, this);
+        sceneEvents.on('deactivate-arena', this.stopWave, this);
+
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+			sceneEvents.off('game-over', this.gameOver, this);
+			sceneEvents.off('activate-arena', this.startWave, this);
+			sceneEvents.off('deactivate-arena', this.stopWave, this);
+		});
     }
 
-    private roomComplete() {
+    private gameOver() {
+        this.scene.setActive(false);
+        this.scene.launch('gameOver');
+        this.scene.bringToTop('gameOver');
+    }
+
+    private startWave() {
+        this.state = LevelState.Active;
+        const spawn = this.tileMap.findObject('Enemies', (object) => object.name === 'Spawn');
+        const data = this.enemyData.find(e => e.name === 'Skeleton');
+        const enemy = new Enemy(this, spawn.x, spawn.y, [], data);
+        this.enemies.add(enemy);
+        this.closeDoors(this.layerWallsBehind);
+    }
+
+    private stopWave() {
+        console.log('Stopping wave...');
+        // this.state = LevelState.Default;
+    }
+
+    private waveComplete() {
         this.state = LevelState.Cleared;
         this.time.delayedCall(400, () => {
-            this.openDoors();
+            /*
+            *  Replace door tiles with open door tiles
+            *  Set collision on the open door tiles
+            */
+           this.openDoors(this.layerWallsBehind);
+           this.player.updateScore(500);
         }, null, this);
     }
 
-    private openDoors() {
+    private setDoorCallback(callback = this.exitLevel) {
+        for (const layer of this.tileMap.layers) {
+            const door = layer.tilemapLayer.findByIndex(486);
+            if (door) {
+                door.layer.tilemapLayer.setTileLocationCallback(door.x, door.y, 1, 1, callback, this);
+                break;
+            }
+        }
+    }
+
+    private openDoors(layer: Phaser.Tilemaps.TilemapLayer) {
         this.sound.play('door-open');
+        layer.replaceByIndex(451, 454);
+        layer.replaceByIndex(452, 455);
+        layer.replaceByIndex(483, 486);
+        layer.replaceByIndex(484, 487);
+        this.setDoorCallback();
+    }
 
-        /*
-         *  Replace door tiles with open door tiles
-         *  Set collision on the open door tiles
-         */
-        this.layerWallsBehind.replaceByIndex(451, 454);
-        this.layerWallsBehind.replaceByIndex(452, 455);
-        this.layerWallsBehind.replaceByIndex(483, 486);
-        this.layerWallsBehind.replaceByIndex(484, 487);
-        this.layerWallsBehind.setCollision([486, 487], false);
-
-        const doorLayer = this.levelData.key === 'arena' ? this.layerWallsBehind : this.layerWallsInFront;
-        const door = doorLayer.findByIndex(486);
-        doorLayer.setTileLocationCallback(door.x, door.y, 1, 1, this.exitLevel, this);
-        this.player.updateScore(500);
+    private closeDoors(layer: Phaser.Tilemaps.TilemapLayer) {
+        this.sound.play('door-open');
+        this.setDoorCallback(null);
+        layer.replaceByIndex(454, 451);
+        layer.replaceByIndex(455, 452);
+        layer.replaceByIndex(486, 483);
+        layer.replaceByIndex(487, 484);
     }
 
     private exitLevel() {
-        const level = LEVEL_CONFIG.find(({key}) => key !== this.levelData.key);
+        const level = LEVEL_CONFIG.find(({ key }) => key !== this.levelData.key);
         this.scene.restart({
             level,
             player: this.player.data.getAll()
@@ -242,11 +289,5 @@ export class Game extends Phaser.Scene {
         //         player: this.player.data.getAll()
         //     });
         // }, this);
-    }
-
-    private gameOver() {
-        this.scene.setActive(false);
-        this.scene.launch('gameOver');
-        this.scene.bringToTop('gameOver');
     }
 }

@@ -5,3 +5,4 @@ export * from "./NPC";
 export * from "./Weapon";
 export * from "./Items";
 export * from "./Spikes";
+export * from "./Button";

@@ -27,47 +27,58 @@ export class Loading extends Phaser.Scene {
 		});
 		this.generateAnimations([
 			{ type: "idle", key: "coin", prefix: 'frames/coin_anim_f', suffix: '.png', start: 0, end: 3, frameRate: 10, repeat: -1 },
-			{ type: "idle", key: "floor_spikes", prefix: 'frames/floor_spikes_anim_f', suffix: '.png', start: 0, end: 3, frameRate: 5, repeat: -1 }
+			{ type: "idle", key: "floor_spikes", prefix: 'frames/floor_spikes_anim_f', suffix: '.png', start: 0, end: 3, frameRate: 5, repeat: -1 },
+			{ type: "idle", key: "chest_open", prefix: 'frames/chest_empty_open_anim_f', suffix: '.png', start: 0, end: 2, frameRate: 5, repeat: 0 }
 		], 'dungeon-sprites');
 		this.scene.start('menu');
 	}
 
 	private loadTextures() {
-		this.load.atlas('dungeon-sprites', 'assets/textures/0x72_DungeonTilesetII_v1.3.png', 'assets/textures/0x72_DungeonTilesetII_v1.3.json');
-		this.load.atlas('npc-sprites', 'assets/textures/knights.png', 'assets/textures/knights.json');
-		this.load.image('tiles', 'assets/levels/0x72_DungeonTilesetII_v1.3.png');
-		this.load.image('orc-blood', 'assets/textures/orc-blood.png');
-		this.load.image('undead-blood', 'assets/textures/undead-blood.png');
-		this.load.image('demon-blood', 'assets/textures/demon-blood.png');
+		this.load.multiatlas([
+			{ key: 'dungeon-sprites', atlasURL: 'assets/textures/0x72_DungeonTilesetII_v1.3.json', path: 'assets/textures' },
+			{ key: 'npc-sprites', atlasURL: 'assets/textures/knights.json', path: 'assets/textures' }
+		])
+		this.load.image([
+			{ key: 'tiles', url: 'assets/levels/0x72_DungeonTilesetII_v1.3.png' },
+			{ key: 'orc-blood', url: 'assets/textures/orc-blood.png' },
+			{ key: 'undead-blood', url: 'assets/textures/undead-blood.png' },
+			{ key: 'demon-blood', url: 'assets/textures/demon-blood.png' }
+		]);
 	}
 
 	private loadSounds() {
-		this.load.audio('coin', 'assets/sounds/coin.mp3');
-		this.load.audio('weapon-swing', 'assets/sounds/weapon-swing.mp3');
-		this.load.audio('weapon-drop', 'assets/sounds/weapon-drop.mp3');
-		this.load.audio('door-open', 'assets/sounds/door-open.wav');
-		this.load.audio('stairs-open', 'assets/sounds/stairs-open.mp3');
-		this.load.audio('orc-hit', 'assets/sounds/orc-hit.mp3');
-		this.load.audio('orc-death', 'assets/sounds/orc-death.mp3');
-		this.load.audio('undead-hit', 'assets/sounds/undead-hit.mp3');
-		this.load.audio('undead-death', 'assets/sounds/undead-death.mp3');
-		this.load.audio('demon-hit', 'assets/sounds/demon-hit.mp3');
-		this.load.audio('demon-death', 'assets/sounds/demon-death.mp3');
-		this.load.audio('menuSelect', 'assets/sounds/select.mp3');
-		this.load.audio('menuMusic', 'assets/sounds/POL-random-encounter-short.wav');
-		this.load.audio('dungeonMusic', 'assets/sounds/POL-fortress-short.wav');
+		this.load.audio([
+			{ key: 'coin', url: 'assets/sounds/coin.mp3' },
+			{ key: 'weapon-swing', url: 'assets/sounds/weapon-swing.mp3' },
+			{ key: 'weapon-drop', url: 'assets/sounds/weapon-drop.mp3' },
+			{ key: 'door-open', url: 'assets/sounds/door-open.wav' },
+			{ key: 'stairs-open', url: 'assets/sounds/stairs-open.mp3' },
+			{ key: 'orc-hit', url: 'assets/sounds/orc-hit.mp3' },
+			{ key: 'orc-death', url: 'assets/sounds/orc-death.mp3' },
+			{ key: 'undead-hit', url: 'assets/sounds/undead-hit.mp3' },
+			{ key: 'undead-death', url: 'assets/sounds/undead-death.mp3' },
+			{ key: 'demon-hit', url: 'assets/sounds/demon-hit.mp3' },
+			{ key: 'demon-death', url: 'assets/sounds/demon-death.mp3' },
+			{ key: 'menuSelect', url: 'assets/sounds/select.mp3' },
+			{ key: 'menuMusic', url: 'assets/sounds/POL-random-encounter-short.wav' },
+			{ key: 'dungeonMusic', url: 'assets/sounds/POL-fortress-short.wav' },
+		]);
 	}
 
 	private loadImages() {
-		this.load.image('caves', 'assets/images/background.png');
-		this.load.image('logo', 'assets/images/logo.png');
+		this.load.image([
+			{ key: 'caves', url: 'assets/images/background.png' },
+			{ key: 'logo', url: 'assets/images/logo.png' }
+		]);
 	}
 
 	private loadData() {
-		this.load.json('characterData', 'assets/data/characters.json');
-		this.load.json('enemyData', 'assets/data/enemies.json');
-		this.load.json('npcData', 'assets/data/npcs.json');
-		this.load.json('weaponData', 'assets/data/weapons.json');
+		this.load.json([
+			{ key: 'characterData', url: 'assets/data/characters.json' },
+			{ key: 'enemyData', url: 'assets/data/enemies.json' },
+			{ key: 'npcData', url: 'assets/data/npcs.json' },
+			{ key: 'weaponData', url: 'assets/data/weapons.json' }
+		]);
 	}
 
 	private loadMaps() {
